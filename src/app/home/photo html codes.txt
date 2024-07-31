@@ -1,0 +1,194 @@
+
+//home page html code for photography
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            
+            create memories with photos
+        </title>
+    </head>
+    <body style="background-color: antiquewhite;">
+        
+            <h1 style="text-align: center; color: cadetblue;">
+                SHOOT ON
+                </h1>
+              <h2 style="text-align:center; color: darkslategray;">  
+            Create memories with photos
+        </h2>
+        
+        
+               <h3 style="text-align: center; color: crimson;">
+                Moments lasts but Memories don`t, Live in the moment. 
+        
+               </h3>
+        
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <img src="../assets/images1.jpg" width="600" height="500">
+        </div>
+
+        <!-- <a href="http://127.0.0.1:5500/q2.html"> move to next page</a> -->
+
+       
+
+        
+        
+    </body>
+</html>
+
+
+
+
+//login page html code
+
+<h3>Login Here</h3>
+<form (ngSubmit)="OnSubmit()" #loginForm="ngForm">
+  <div class="input-group flex-nowrap">
+    <div>
+      <span class="input-group-text" id="addon-wrapping"><b>@ Username</b></span>
+      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" [(ngModel)]="Username" name="username"  (ngModelChange)="updateImage()" required>
+    </div>
+  </div>
+  <br>
+
+  <div class="input-group flex-nowrap">
+    <div>
+      <span class="input-group-text" id="addon-wrapping"><b>🔒 Password</b></span>
+      <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping" [(ngModel)]="Password" name="password" required> 
+    </div>
+  </div>
+
+  <br>
+  &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button class="btn btn-success" (click)="toRegister()">Sign Up</button>
+<br>
+<br>
+  <div>
+    
+    <img [src]="imgUrl" alt="Profile pic" height=200  width=250>
+
+</div>
+
+
+
+</form>
+
+<div *ngIf="loginAttempts.length >0">
+  <table border ="2">
+      <thead>
+          <tr>
+              <th>UserName</th>
+          <th>Password</th>
+          <th>Time</th>
+          </tr>
+         
+      </thead>
+      <tbody>
+          <tr *ngFor="let logd of loginAttempts" >
+             <td> {{logd.username}}</td>                  
+             <td>{{logd.password|phpipe:3}}</td>          
+          <td>{{logd.timestamp}}</td>
+          </tr>
+         
+      </tbody>
+  </table>
+ 
+  </div>
+
+
+
+//login page html code
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        padding: 20px;
+    }
+    .registration {
+        max-width: 500px;
+        margin: auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .registration input[type="text"],
+    .registration input[type="email"],
+    .registration textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+    .registration textarea {
+        height: 150px;
+    }
+    .registration input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    .registration input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body >
+
+<div class="registration"  style="background-image:url(call.webp)">
+    <h2>Registration</h2>
+    <form #RegiForm="ngForm"(ngSubmit)="OnSubmit(RegiForm)">
+        <input type="text" name="Username" placeholder=" Name"  [(ngModel)]="Username" ngModel #username="ngModel" required minlength="4"  required>
+        <div *ngIf="username.invalid && (username.dirty||username.touched)">
+            <div *ngIf="username.errors?.['required']">UserName is required</div>
+            <div *ngIf="username.errors?.['minlength']">Username should not be less than 4</div>
+     
+        </div>
+
+
+        <input type="email" name="password" placeholder=" Password"   [(ngModel)]="Password" ngModel #password="ngModel"
+         minlength="7" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$"   required>
+         <div *ngIf="password.invalid && (password.dirty||password.touched)">
+            <div *ngIf="password.errors?.['required']">Password is required</div>
+            <div *ngIf="password.errors?.['minlength']">Password should not be less than 7</div>
+            <div *ngIf="password.errors?.['pattern']">Special characters and digits needed</div>
+
+        </div>
+
+
+        <input type="email" name="email" placeholder=" Email"  [(ngModel)]="email" ngModel #Email="ngModel"
+         pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+         <div *ngIf="Email.invalid && (Email.dirty||Email.touched)">
+            <div *ngIf="Email.errors?.['pattern']">@ symbol is required</div>
+         </div>
+
+
+        <textarea name="location" placeholder=" Location" [(ngModel)]="Location" required></textarea>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- <a href="http://127.0.0.1:5500/q4.html"> click here to view gallery</a> -->
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,54 @@
+<h3>Login Here</h3>
+<form (ngSubmit)="OnSubmit()" #loginForm="ngForm">
+  <div class="input-group flex-nowrap">
+    <div>
+      <span class="input-group-text" id="addon-wrapping"><b>@ Username</b></span>
+      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" [(ngModel)]="Username" name="username"  (ngModelChange)="updateImage()" required>
+    </div>
+  </div>
+  <br>
+
+  <div class="input-group flex-nowrap">
+    <div>
+      <span class="input-group-text" id="addon-wrapping"><b>🔒 Password</b></span>
+      <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping" [(ngModel)]="Password" name="password" required> 
+    </div>
+  </div>
+
+  <br>
+  &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success"  [disabled]="!isFormValid()" [attr.data-valid]="isFormValid()">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button class="btn btn-success" (click)="toRegister()">Sign Up</button>
+<br>
+<br>
+  <div>
+    
+    <img [src]="imgUrl" alt="Profile pic" height=200  width=250>
+
+</div>
+
+
+
+</form>
+
+<div *ngIf="loginAttempts.length >0">
+  <table border ="2">
+      <thead>
+          <tr>
+              <th>UserName</th>
+          <th>Password</th>
+          <th>Time</th>
+          </tr>
+         
+      </thead>
+      <tbody>
+          <tr *ngFor="let logd of loginAttempts" >
+             <td> {{logd.username}}</td>                  
+             <td>{{logd.password|phpipe:3}}</td>          
+          <td>{{logd.timestamp}}</td>
+          </tr>
+         
+      </tbody>
+  </table>
+ 
+  </div>
+

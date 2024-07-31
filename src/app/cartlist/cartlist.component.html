@@ -1,0 +1,54 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Catalog</title>
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}a
+th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+img {
+    max-width: 100px;
+    height: auto;
+}
+</style>
+</head>
+<body>
+    <p>CartList</p>
+<h1 style="text-align: center; color: burlywood;">World of Cameras</h1>
+<table style="text-align: center;">
+<thead><tr><th> Image</th><th>Brand</th><th>About</th><th>Amount</th><th>Links</th></tr></thead>
+<tbody>
+    <tr *ngFor="let i of pic">
+        <td><img src={{i.ImgUrl}}></td>
+        <td>{{i.name}}</td>
+        <td>{{i.des}}</td>
+        <td>{{i.amt}} Rs</td>
+        <td><a (click)="addToCart(i)">Add to Cart</a></td>
+    </tr>
+</tbody>
+</table>
+
+ <!-- <a href="http://127.0.0.1:5500/q7.html"> Here are some exiting dishes</a> --> 
+ </body>
+</html> 
+
+<!-- <p>cartlist works!</p>
+<h1>Product List</h1>
+<div *ngFor="let product of products">
+    <p>{{product.name}} - {{product.price}}</p>
+    <button (click)="onAddtoCart(product)">AddToCart</button>
+</div> -->
+
+<app-shopcartlist [total]="total"></app-shopcartlist>

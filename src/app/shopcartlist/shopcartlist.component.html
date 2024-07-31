@@ -1,0 +1,45 @@
+<p>shopcartlist works!</p>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  th {
+    background-color: #f2f2f2;
+    text-align: center;
+  }
+  img {
+    max-width: 100px;
+    height: auto;
+  }
+</style> 
+<table>
+  <thead>
+    <tr>
+      <th>Brand</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of pic">
+      <td>{{ i.name }}</td>
+      <td>Rs {{ i.amt }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Using ngSwitch -->
+<div [ngSwitch]="getSwitchCase()">
+  <!-- Case 1: When total is less than 100 -->
+  <p *ngSwitchCase="'lessThan50000'">Total is less than Rs 50000.</p>
+
+  <!-- Case 2: When total is between 100 and 200 -->
+  <p *ngSwitchCase="'between50000and200000'">Total is between Rs 50000 and Rs 200000.</p>
+
+  <!-- Default Case: When total is greater than 200 -->
+  <p *ngSwitchDefault>Total is Rs {{ total }}</p>
+</div>

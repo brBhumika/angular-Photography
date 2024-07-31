@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        padding: 20px;
+    }
+    .registration {
+        max-width: 500px;
+        margin: auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .registration input[type="text"],
+    .registration input[type="email"],
+    .registration textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+    .registration textarea {
+        height: 150px;
+    }
+    .registration input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    .registration input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body >
+
+<div class="registration"  style="background-image:url(call.webp)">
+    <h2>Registration</h2>
+    <form #RegiForm="ngForm"(ngSubmit)="OnSubmit(RegiForm)">
+        <input type="text" name="Username" placeholder=" Name"  [(ngModel)]="Username" ngModel #username="ngModel" required minlength="4"  required>
+        <div *ngIf="username.invalid && (username.dirty||username.touched)">
+            <div *ngIf="username.errors?.['required']">UserName is required</div>
+            <div *ngIf="username.errors?.['minlength']">Username should not be less than 4</div>
+     
+        </div>
+
+
+        <input type="email" name="password" placeholder=" Password"   [(ngModel)]="Password" ngModel #password="ngModel"
+         minlength="7" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$"   required>
+         <div *ngIf="password.invalid && (password.dirty||password.touched)">
+            <div *ngIf="password.errors?.['required']">Password is required</div>
+            <div *ngIf="password.errors?.['minlength']">Password should not be less than 7</div>
+            <div *ngIf="password.errors?.['pattern']">Special characters and digits needed</div>
+
+        </div>
+
+
+        <input type="email" name="email" placeholder=" Email"  [(ngModel)]="email" ngModel #Email="ngModel"
+         pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+         <div *ngIf="Email.invalid && (Email.dirty||Email.touched)">
+            <div *ngIf="Email.errors?.['pattern']">@ symbol is required</div>
+         </div>
+
+
+        <textarea name="location" placeholder=" Location" [(ngModel)]="Location" required></textarea>
+
+        <input type="submit" value="Submit" [disabled]="!isFormValid()" [attr.data-valid]="isFormValid()">
+    </form>
+</div>
+
+<!-- <a href="http://127.0.0.1:5500/q4.html"> click here to view gallery</a> -->
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,217 @@
+create table photographers(photographerid int primary key,
+photographername varchar(30),
+speciality varchar(30),
+explevel int);
+
+
+insert into photographers(photographerid,photographername,speciality,explevel)values
+((01,'karthi','candid',5),
+(06,'chandu','potrait',6),
+(02,'bhuvi','wildlife',7),
+(03,'amogh','nature',4),
+(04,'mukund','potrait',8),
+(05,'hima','candid',6),
+(07,'shalom','wildlife',4),
+(08,'adi','potrait',5),
+(09,'udvith','candid',8),
+(10,'triveni','candid',6),
+(11,'netrapala','nature',6),
+(12,'ganesha','potrait',8),
+(13,'karthi','potrait',8),
+(14,'bharathi','nature',5),
+(15,'varsha','wildlife',5));
+
+create table photo(photoid int primary key,
+date date,
+location varchar(30),
+camera varchar(25),
+grapherid int
+foreign key (grapherid) references photographers(photographerid));
+
+
+
+insert into photo(photoid,date,location,camera,grapherid)values
+((1,2014-05-16,'shimla','nikon',11);
+(2,2016-04-16,'kerala','dslr',12);
+(3,2020-05-02,'bandipur','canon',10);
+(4,2002-05-02,'kudremukha','sony',13);
+(5,2019-01-11,'goa','nikon',14);
+(6,2017-07-15,'goa','dslr',15);
+(7,2024-02-09,'shimla','canon',09);
+(8,2021-04-04,'honnavara','sony',08);
+(9,2012-03-08,'kerala','nikon',07);
+(10,2015-08-12,'kodhachadri','dslr',06);
+(11,2014-07-17,'kodaikannal','canon',05);
+(12,2016-05-16,'ooty','sony',04);
+(13,2017-08-16,'kerala','nikon',03);
+(14,2014-08-16,'goa','dslr',02);
+(15,2010-05-16,'kundapura','canon',01);
+
+select * from photographers order by explevel;
+
+select * from photo where location='kerala' and camera='nikon';
+
+select * from photographers where photographername like 'k%';
+
+select * from photographers where explevel between 4 and 8;
+
+select photographers.photographername,photographers.speciality,photo.camera from photographers inner join photo on photographers.photographerid=photo.grapherid; 
+
+
+select photographers.explevel,photo.location from photographers cross join photo;
+
+select date from photo where location='shimla' group by camera;
+
+create procedure BProcsample1
+@ab int
+As
+Begin
+Select photographername,speciality,explevel from photographers where @ab=photographerid
+End
+ 
+execute BProcsample1 @ab=12
+
+create Procedure BInsertProc1
+@phid int,
+@da date,
+@loc varchar(50),
+@cam varchar(25),
+@gra int
+As
+Begin
+Insert into photo(photoid,date,location,camera,grapherid) values (@phid,@da,@loc,@cam,@gra)
+End
+ 
+Exec BInsertProc1
+@phid=16,
+@da='2001-03-09',
+@loc='sakleshpura',
+@cam='sony',
+@gra=16;
+
+
+create Procedure BProcDml1
+@ab int,
+@name varchar(50),
+@spe varchar(50),
+@ex int,
+@Action varchar(50)
+As
+Begin
+If @Action='Insert'
+Begin
+Insert into photographers(photographerid,photographername,speciality,explevel) values (@ab,@name,@spe,@ex) 
+End 
+else if @Action='update'
+Begin
+update photographers
+set
+photographername=@name,
+speciality=@spe,
+explevel=@ex
+where photographerid=@ab
+End
+else if @Action='select'
+Begin
+select * from photographers;
+End
+else if @Action='delete'
+Begin
+delete  from photographers where @ab=04;
+End
+else
+Begin
+	RAISERROR ('Invalid operation Type',16,1)
+return ;
+end
+end;
+
+exec BProcDml1
+@Action='update',
+@ab=08,
+@name='damsi',
+@spe='nature',
+@ex=6;
+
+exec BProcDml1
+@Action='insert',
+@ab=17,
+@name='ganga',
+@spe='potrait',
+@ex=6;
+
+create function BcalNewAge
+(
+ 
+@db Date
+)
+returns Int
+As
+Begin
+Declare @Age int;
+select @Age=DATEDIFF(year,@db,GetDate());
+return @Age;
+End;
+
+--Execute 
+Select location,camera,dbo.BcalNewAge(date) As Age
+from photo
+
+
+create function Bgetspeciality
+(
+@spe varchar(25)
+)
+returns table
+as
+return 
+(
+select photographername,explevel,photographerid from photographers where speciality=@spe
+);
+ 
+--Execute 
+select * from photographers where speciality='potrait';  or  select * from dbo.Bgetspeciality('potrait');
+
+create view Bpdetials
+As
+select photographers.photographername,photographers.speciality,photo.camera from photographers inner join photo on photographers.photographerid=photo.grapherid; 
+
+
+select * from Bpdetails;
+
+
+CREATE TABLE photoLog1 (
+    logid INT IDENTITY(1,1) PRIMARY KEY,
+    photoid INT,
+     date date,
+    location varchar(25),
+    camera VARCHAR(50),
+    photographerid int,
+    logtime DATETIME DEFAULT GETDATE()
+);
+ 
+ 
+ 
+
+
+ CREATE TRIGGER BtrgAfterInsertPhoto
+ON photo
+AFTER INSERT
+AS
+BEGIN
+    -- Insert the new data into the photoLog1 table
+    INSERT INTO photoLog1 (photoid, date, location, camera, photographerid)
+    SELECT photoid, date, location, camera, grapherid
+    FROM inserted;
+END;
+
+ 
+insert into photo(photoid,date,location,camera,grapherid)values
+(17,'2020-03-05','thailand','dslr',15);
+ 
+select * from photoLog1;
+
+
+
+
+
